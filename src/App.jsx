@@ -1,0 +1,30 @@
+import { useEffect } from "react";
+import { BrowserRouter, Routes, Route, useNavigate } from "react-router-dom";
+import MainPage from './components/MainPage'
+import LandingPage from './components/LandingPage'
+import AdminPanel from './components/AdminPanel'
+import UploadGpx from './components/UploadGpx'
+import Culture from './components/NewLanding/Culture'
+
+function App() {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+    if (redirect) {
+      navigate(redirect, { replace: true });
+    }
+  }, [navigate]);
+
+  return (
+    <Routes>
+      <Route path="/" element={<LandingPage />} />
+      <Route path="/map" element={<MainPage />} />
+      <Route path="/culture" element={<Culture />} />
+      <Route path="/admin" element={<AdminPanel />} />
+      <Route path="/admin/uploadGpx" element={<UploadGpx />} />
+    </Routes>
+  )
+}
+
+export default App
